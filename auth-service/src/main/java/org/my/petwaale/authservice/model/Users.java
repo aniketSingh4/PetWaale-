@@ -1,30 +1,42 @@
 package org.my.petwaale.authservice.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+//User entity
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.Set;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Users 
 {
-	@Id
+	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-	
+	private Long id;
+
+	@Column(nullable = false, unique = true)
 	private String username;
-	
+
+	@Column(nullable = false)
 	private String password;
+
+	// additional fields: email, fullname, etc.
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+	@Column(name = "role")
+	private Set<String> roles;
 
 	
 	//Getter and Setter Methods
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -44,14 +56,11 @@ public class Users
 		this.password = password;
 	}
 
-	
-	//Just Override toString() methods
-	@Override
-	public String toString() {
-		return "Users [id=" + id + 
-				", username=" + username + 
-				", password=" + password + "]";
+	public Set<String> getRoles() {
+		return roles;
 	}
-	
 
+	public void setRoles(Set<String> roles) {
+		this.roles = roles;
+	}
 }
