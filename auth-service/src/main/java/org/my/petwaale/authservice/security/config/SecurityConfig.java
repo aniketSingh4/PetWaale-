@@ -10,6 +10,7 @@ import org.my.petwaale.authservice.security.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.*;
 import org.springframework.security.authentication.*;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.*;
@@ -29,32 +30,41 @@ public class SecurityConfig {
     private CustomUserDetailsService userDetailsService;
     @Autowired
     private JwtUtils jwtUtils;
+    
+    
+    
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception
+//    {
+//    	httpSecurity.authorizeHttpRequests(request -> request.anyRequest().authenticated())
+//    	.formLogin(Customizer.withDefaults())
+//    	.httpBasic(Customizer.withDefaults());
+//    	
+//    	return httpSecurity.build();
+//    }
 
-    @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
-    }
+//    @Bean
+//    public AuthenticationManager authenticationManager(
+//            AuthenticationConfiguration authConfig) throws Exception {
+//        return authConfig.getAuthenticationManager();
+//    }
 
-    @Bean
-    public <JwtAuthTokenFilter> JwtAuthTokenFilter authenticationJwtTokenFilter() {
-        return new JwtAuthTokenFilter();
-    }
-
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-          .csrf().disable()
-          .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-          .and()
-          .authorizeHttpRequests(authorize -> authorize
-              .requestMatchers("/api/auth/**").permitAll()
-              .anyRequest().authenticated()
-          );
-
-        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
-        return http.build();
-    }
+//    @Bean
+//    public <JwtAuthTokenFilter> JwtAuthTokenFilter authenticationJwtTokenFilter() {
+//        //return new JwtAuthTokenFilter();
+//    }
+//
+//    @Bean
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//          .authorizeHttpRequests(authorize -> authorize
+//              .requestMatchers("/api/auth/**").permitAll()
+//              .anyRequest().authenticated()
+//          );
+//
+//        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
+//    }
 }
 
