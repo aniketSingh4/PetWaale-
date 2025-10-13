@@ -1,6 +1,7 @@
 package org.my.petwaale.authservice.service;
 
 
+import org.my.petwaale.authservice.dto.UserDTO;
 import org.my.petwaale.authservice.model.User;
 import org.my.petwaale.authservice.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,20 @@ public class UserServiceImpl implements UserService
  public User findByUsername(String username) 
  {
      return userRepository.findByUsername(username).orElse(null);
+ }
+
+ @Override
+ public User registerNewUser(UserDTO userDTO) throws Exception 
+ {
+	String userName = userDTO.getName();
+	String password = userDTO.getPassword();
+	Optional<User> existing = userRepository.findByUsername(userName);
+    if (existing.isPresent()) {
+        throw new Exception("Username already exists");
+    }
+    String encodedPwd = passwordEncoder.encode(password);
+    User user = new User(userName, encodedPwd);
+    return userRepository.save(user);
  }
 }
 

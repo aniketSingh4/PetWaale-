@@ -36,32 +36,41 @@ public class SecurityConfig {
          return org.springframework.security.core.userdetails.User
                  .withUsername(user.getUsername())
                  .password(user.getPassword())
-                 .authorities("USER")  // default authority
+                 //.authorities("USER")  // default authority
                  .build();
      };
  }
 
 
-@Bean
+ @Bean
  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception 
-{
+ {
      http
-         .csrf().disable()  // disable CSRF for simplicity (not recommended for production) 
-         .authorizeHttpRequests(authorize -> authorize
-             .requestMatchers("/signup", "/login", "/css/**", "/js/**").permitAll()
+         // Enable CSRF (recommended for forms)
+         .csrf(csrf -> csrf.disable()) // Use .disable() only if you’re testing with APIs (optional)
+         
+         // Authorization settings
+         .authorizeHttpRequests(auth -> auth
+             .requestMatchers("/api/signup", "/api/signup/**", "/login", "/css/**", "/js/**").permitAll() // allow public signup
              .anyRequest().authenticated()
          )
+
+         // Login form configuration
          .formLogin(form -> form
              .loginPage("/login")
-             .defaultSuccessUrl("/welcome", true)
+             .defaultSuccessUrl("/index", true)
              .permitAll()
          )
+
+         // Logout configuration
          .logout(logout -> logout
              .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
              .logoutSuccessUrl("/login?logout")
              .permitAll()
          );
+
      return http.build();
  }
+
 }
 
