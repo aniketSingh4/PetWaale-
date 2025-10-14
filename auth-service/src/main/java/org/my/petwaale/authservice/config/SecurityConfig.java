@@ -51,23 +51,24 @@ public class SecurityConfig {
          
          // Authorization settings
          .authorizeHttpRequests(auth -> auth
-             .requestMatchers("/api/signup", "/api/signup/**", "/login", "/css/**", "/js/**").permitAll() // allow public signup
+             .requestMatchers("/api/auth/**", "/css/**", "/js/**").permitAll() // allow public signup
              .anyRequest().authenticated()
          )
 
          // Login form configuration
          .formLogin(form -> form
-             .loginPage("/login")
-             .defaultSuccessUrl("/index", true)
-             .permitAll()
+                 .loginPage("/api/auth/login")          // <-- FIXED: added leading slash
+                 .loginProcessingUrl("/api/auth/login") // handles POST /api/auth/login automatically
+                 .defaultSuccessUrl("/api/auth/welcome", true)
+                 .permitAll()
          )
 
          // Logout configuration
          .logout(logout -> logout
-             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-             .logoutSuccessUrl("/login?logout")
-             .permitAll()
-         );
+                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                 .logoutSuccessUrl("/api/auth/login?logout")
+                 .permitAll()
+           );
 
      return http.build();
  }
