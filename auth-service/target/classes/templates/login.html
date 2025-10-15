@@ -33,7 +33,7 @@
     <h3 class="text-center mb-3">🐶 Welcome Back</h3>
     <form th:action="@{/api/auth/login}" method="post">
       <div class="mb-3">
-        <label class="form-label">Username</label>
+        <label class="form-label">UserName</label>
         <input type="text" name="username" class="form-control" required />
       </div>
       <div class="mb-3">
@@ -45,6 +45,10 @@
     <p class="text-center mt-3">
       Don’t have an account? <a th:href="@{/api/auth/signup}" class="text-decoration-none">Sign up</a>
     </p>
+    <p class="text-center mt-2">
+    	<a th:href="@{/api/auth/forgot-password}" class="text-decoration-none">Forgot Password?</a>
+	</p>
+    
   </div>
 </body>
 </html>

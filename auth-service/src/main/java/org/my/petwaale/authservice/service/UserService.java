@@ -2,7 +2,9 @@ package org.my.petwaale.authservice.service;
 
 import org.my.petwaale.authservice.dto.UserDTO;
 import org.my.petwaale.authservice.model.User;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface UserService 
 {
     User registerNewUser(String username, String password) throws Exception;

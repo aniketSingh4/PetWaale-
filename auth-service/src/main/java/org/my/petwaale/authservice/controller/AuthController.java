@@ -66,6 +66,5 @@ public class AuthController
 	    model.addAttribute("shopItems", products);
 	    return "shop";
 	}
-
 }
 

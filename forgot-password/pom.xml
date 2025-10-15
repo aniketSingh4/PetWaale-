@@ -11,11 +11,10 @@
 		<version>3.5.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>org.my</groupId>
-	<artifactId>petwaale</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>PetWaale</name>
-	<description>This application helps to save animals.</description>
+	<groupId>org.my.petwaale.forgot-password</groupId>
+  	<artifactId>forgot-password</artifactId>
+  	<name>Forgot Password</name>
+  	<description>This microservice helps to update password.</description>
 	<url/>
 	<licenses>
 		<license/>

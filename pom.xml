@@ -10,5 +10,6 @@
   <description>This application helps to save animals.</description>
   <modules>
   	<module>auth-service</module>
+  	<module>forgot-password</module>
   </modules>
 </project>
