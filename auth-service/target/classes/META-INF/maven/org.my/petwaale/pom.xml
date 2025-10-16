@@ -89,6 +89,11 @@
     		<artifactId>jjwt</artifactId>
     		<version>0.9.1</version>
 		</dependency>
+		<dependency>
+			<groupId>org.my.petwaale.forgot-password</groupId>
+			<artifactId>forgot-password</artifactId>
+			<version>3.5.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>
